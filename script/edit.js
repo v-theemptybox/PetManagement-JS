@@ -1,20 +1,17 @@
 "use strict";
 
-const submitBtn = document.getElementById("submit-btn");
-const idInput = document.getElementById("input-id");
-const nameInput = document.getElementById("input-name");
-const ageInput = document.getElementById("input-age");
-const typeInput = document.getElementById("input-type");
-const weightInput = document.getElementById("input-weight");
-const lengthInput = document.getElementById("input-length");
-const colorInput = document.getElementById("input-color-1");
-const breedInput = document.getElementById("input-breed");
-const vaccinatedInput = document.getElementById("input-vaccinated");
-const dewormedInput = document.getElementById("input-dewormed");
-const sterilizedInput = document.getElementById("input-sterilized");
 const editForm = document.getElementById("container-form");
+const idInputEl = document.getElementById("input-id");
+const nameInputEl = document.getElementById("input-name");
+const ageInputEl = document.getElementById("input-age");
+const typeInputEl = document.getElementById("input-type");
+const weightInputEl = document.getElementById("input-weight");
+const lengthInputEl = document.getElementById("input-length");
+const colorInputEl = document.getElementById("input-color-1");
+const breedInputEl = document.getElementById("input-breed");
 
 let petArr = JSON.parse(getFromStorage("lsPets")) ?? [];
+let breedArr = JSON.parse(getFromStorage("lsBreeds")) ?? [];
 
 renderTableData(petArr);
 
@@ -51,6 +48,43 @@ function renderTableData(arr) {
   }
 }
 
+// Ongoing: Type, Breed
 function editPet(petId) {
-  editForm.classList.toggle("hide");
+  editForm.classList.remove("hide");
+  for (let pet of petArr) {
+    if (pet.id == petId) {
+      idInputEl.value = pet.id;
+      nameInputEl.value = pet.name;
+      ageInputEl.value = pet.age;
+      typeInputEl.value = pet.type;
+      weightInputEl.value = pet.weight;
+      lengthInputEl.value = pet.lengthVal;
+      colorInputEl.value = pet.color;
+      breedInputEl.value = pet.breed;
+    }
+  }
 }
+
+// Render breed
+const renderBreed = function (breedArr) {
+  const filteredBreed = breedArr.filter(
+    (breed) => typeInput.value == breed.pType
+  );
+
+  while (breedInput.hasChildNodes()) {
+    breedInput.removeChild(breedInput.firstChild);
+  }
+
+  for (let breed of filteredBreed) {
+    const option = document.createElement("option");
+    option.innerHTML = `${breed.pBreed}`;
+    breedInput.appendChild(option);
+  }
+};
+
+typeInput.addEventListener("change", function handleChange(event) {
+  for (let breed of breedArr) {
+    breed.pType == typeInput.value;
+  }
+  renderBreed(breedArr);
+});
