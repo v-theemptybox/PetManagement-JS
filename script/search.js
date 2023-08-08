@@ -54,15 +54,30 @@ function renderTableData(arr) {
 
 // MAYBE THE LOGIC SHOULD BE REVIEWED
 // Ongoing: Type, Breed
-function findPetId(petId, petName, vaccinatedPet, dewormedPet, sterilizedPet) {
+function findPetId(
+  petId,
+  petName,
+  pType,
+  pBreed,
+  vaccinatedPet,
+  dewormedPet,
+  sterilizedPet
+) {
   renderTableData(
     petArr.filter((pet) => {
       if (
-        pet.id.indexOf(petId) > -1 &&
-        pet.name.indexOf(petName) > -1 &&
-        vaccinatedPet == pet.vaccinated &&
-        dewormedPet == pet.dewormed &&
-        sterilizedPet == pet.sterilized
+        (pet.id.indexOf(petId) > -1 &&
+          pet.name.indexOf(petName) > -1 &&
+          // pet.type == pType
+          // pet.breed == pBreed
+          vaccinatedPet == pet.vaccinated) ||
+        (pet.id.indexOf(petId) > -1 &&
+          pet.name.indexOf(petName) > -1 &&
+          // pet.type == pType
+          // pet.breed == pBreed
+          dewormedPet == pet.dewormed)
+
+        // sterilizedPet == pet.sterilized
       ) {
         return pet;
       }
@@ -74,6 +89,8 @@ findBtn.addEventListener("click", function () {
   findPetId(
     idInputEl.value,
     nameInputEl.value,
+    typeInputEl.value,
+    breedInputEl.value,
     vaccinatedInputEl.checked,
     dewormedInputEl.checked,
     sterilizedInputEl.checked
