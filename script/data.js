@@ -6,7 +6,6 @@ const file = document.getElementById("input-file");
 
 // let jsonData = getFromStorage("lsPets");
 let petArr = JSON.parse(getFromStorage("lsPets")) ?? [];
-let testArr = petArr;
 let jsonData = JSON.stringify(petArr, null, 2);
 
 btnImport.addEventListener("click", handleImportBtn);
@@ -26,7 +25,6 @@ function logFile(e) {
   let str = e.target.result;
   let importedData = JSON.parse(str);
 
-  // testArr.push(...importedData);
   importedData.forEach((importedObj) => {
     let existingObjIndex = petArr.findIndex(
       (existingObj) => existingObj.id === importedObj.id

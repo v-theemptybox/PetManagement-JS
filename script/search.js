@@ -52,41 +52,228 @@ function renderTableData(arr) {
   }
 }
 
-// MAYBE THE LOGIC SHOULD BE REVIEWED
-// Ongoing: Type, Breed
-function findPetId(
-  petId,
-  petName,
-  pType,
-  pBreed,
+breedArr.forEach((breed) => {
+  const option = document.createElement("option");
+  option.value = breed.pBreed;
+  option.textContent = breed.pBreed;
+  breedInputEl.appendChild(option);
+});
+
+// function findPet(
+//   idChar,
+//   nameChar,
+//   typePet,
+//   breedPet,
+//   vaccinatedPet,
+//   dewormedPet,
+//   sterilizedPet
+// ) {
+//   let filteredPets = [];
+
+//   if (typePet != "Select Type") {
+//     if (!vaccinatedPet && !dewormedPet && !sterilizedPet) {
+//       // if no conditions checked, show all pets
+//       filteredPets = petArr.filter((pet) => {
+//         return (
+//           pet.id.includes(idChar) &&
+//           pet.name.includes(nameChar) &&
+//           pet.type === typePet
+//         );
+//       });
+//     } else if (vaccinatedPet && !dewormedPet && !sterilizedPet) {
+//       // only vaccinated
+//       filteredPets = petArr.filter((pet) => {
+//         return (
+//           pet.vaccinated &&
+//           pet.id.includes(idChar) &&
+//           pet.name.includes(nameChar) &&
+//           pet.type == typePet
+//         );
+//       });
+//     } else if (!vaccinatedPet && dewormedPet && !sterilizedPet) {
+//       // only dewormed
+//       filteredPets = petArr.filter((pet) => {
+//         return (
+//           pet.dewormed &&
+//           pet.id.includes(idChar) &&
+//           pet.name.includes(nameChar) &&
+//           pet.type == typePet
+//         );
+//       });
+//     } else if (!vaccinatedPet && !dewormedPet && sterilizedPet) {
+//       // only sterilized
+//       filteredPets = petArr.filter((pet) => {
+//         return (
+//           pet.sterilized &&
+//           pet.id.includes(idChar) &&
+//           pet.name.includes(nameChar) &&
+//           pet.type == typePet
+//         );
+//       });
+//     } else if (vaccinatedPet && dewormedPet && !sterilizedPet) {
+//       // vaccinated and dewormed
+//       filteredPets = petArr.filter((pet) => {
+//         return (
+//           pet.vaccinated &&
+//           pet.dewormed &&
+//           pet.id.includes(idChar) &&
+//           pet.name.includes(nameChar) &&
+//           pet.type == typePet
+//         );
+//       });
+//     } else if (vaccinatedPet && !dewormedPet && sterilizedPet) {
+//       // vaccinated and sterilized
+//       filteredPets = petArr.filter((pet) => {
+//         return (
+//           pet.vaccinated &&
+//           pet.sterilized &&
+//           pet.id.includes(idChar) &&
+//           pet.name.includes(nameChar) &&
+//           pet.type == typePet
+//         );
+//       });
+//     } else if (!vaccinatedPet && dewormedPet && sterilizedPet) {
+//       // dewormed and sterilized
+//       filteredPets = petArr.filter((pet) => {
+//         return (
+//           pet.dewormed &&
+//           pet.sterilized &&
+//           pet.id.includes(idChar) &&
+//           pet.name.includes(nameChar) &&
+//           pet.type == typePet
+//         );
+//       });
+//     } else if (vaccinatedPet && dewormedPet && sterilizedPet) {
+//       // all
+//       filteredPets = petArr.filter((pet) => {
+//         return (
+//           pet.vaccinated &&
+//           pet.dewormed &&
+//           pet.sterilized &&
+//           pet.id.includes(idChar) &&
+//           pet.name.includes(nameChar) &&
+//           pet.type == typePet
+//         );
+//       });
+//     }
+//   } else {
+//     if (!vaccinatedPet && !dewormedPet && !sterilizedPet) {
+//       // if no conditions checked, show all pets
+//       filteredPets = petArr.filter((pet) => {
+//         return pet.id.includes(idChar) && pet.name.includes(nameChar);
+//       });
+//     } else if (vaccinatedPet && !dewormedPet && !sterilizedPet) {
+//       // only vaccinated
+//       filteredPets = petArr.filter((pet) => {
+//         return (
+//           pet.vaccinated &&
+//           pet.id.includes(idChar) &&
+//           pet.name.includes(nameChar)
+//         );
+//       });
+//     } else if (!vaccinatedPet && dewormedPet && !sterilizedPet) {
+//       // only dewormed
+//       filteredPets = petArr.filter((pet) => {
+//         return (
+//           pet.dewormed && pet.id.includes(idChar) && pet.name.includes(nameChar)
+//         );
+//       });
+//     } else if (!vaccinatedPet && !dewormedPet && sterilizedPet) {
+//       // only sterilized
+//       filteredPets = petArr.filter((pet) => {
+//         return (
+//           pet.sterilized &&
+//           pet.id.includes(idChar) &&
+//           pet.name.includes(nameChar)
+//         );
+//       });
+//     } else if (vaccinatedPet && dewormedPet && !sterilizedPet) {
+//       // vaccinated and dewormed
+//       filteredPets = petArr.filter((pet) => {
+//         return (
+//           pet.vaccinated &&
+//           pet.dewormed &&
+//           pet.id.includes(idChar) &&
+//           pet.name.includes(nameChar)
+//         );
+//       });
+//     } else if (vaccinatedPet && !dewormedPet && sterilizedPet) {
+//       // vaccinated and sterilized
+//       filteredPets = petArr.filter((pet) => {
+//         return (
+//           pet.vaccinated &&
+//           pet.sterilized &&
+//           pet.id.includes(idChar) &&
+//           pet.name.includes(nameChar)
+//         );
+//       });
+//     } else if (!vaccinatedPet && dewormedPet && sterilizedPet) {
+//       // dewormed and sterilized
+//       filteredPets = petArr.filter((pet) => {
+//         return (
+//           pet.dewormed &&
+//           pet.sterilized &&
+//           pet.id.includes(idChar) &&
+//           pet.name.includes(nameChar)
+//         );
+//       });
+//     } else if (vaccinatedPet && dewormedPet && sterilizedPet) {
+//       // all
+//       filteredPets = petArr.filter((pet) => {
+//         return (
+//           pet.vaccinated &&
+//           pet.dewormed &&
+//           pet.sterilized &&
+//           pet.id.includes(idChar) &&
+//           pet.name.includes(nameChar)
+//         );
+//       });
+//     }
+//   }
+
+//   renderTableData(filteredPets);
+// }
+
+// refactor findPet code
+function findPet(
+  idChar,
+  nameChar,
+  typePet,
+  breedPet,
   vaccinatedPet,
   dewormedPet,
   sterilizedPet
 ) {
-  renderTableData(
-    petArr.filter((pet) => {
-      if (
-        (pet.id.indexOf(petId) > -1 &&
-          pet.name.indexOf(petName) > -1 &&
-          // pet.type == pType
-          // pet.breed == pBreed
-          vaccinatedPet == pet.vaccinated) ||
-        (pet.id.indexOf(petId) > -1 &&
-          pet.name.indexOf(petName) > -1 &&
-          // pet.type == pType
-          // pet.breed == pBreed
-          dewormedPet == pet.dewormed)
+  const filterConditions = {
+    id: idChar,
+    name: nameChar,
+    type: typePet,
+    breed: breedPet,
+    vaccinated: vaccinatedPet,
+    dewormed: dewormedPet,
+    sterilized: sterilizedPet,
+  };
 
-        // sterilizedPet == pet.sterilized
-      ) {
-        return pet;
+  const filteredPets = petArr.filter((pet) => {
+    return Object.entries(filterConditions).every(([key, value]) => {
+      if (key === "type" && value === "Select Type") {
+        return true;
       }
-    })
-  );
+      if (key === "breed" && value === "Select Breed") {
+        return true;
+      }
+      if (key === "vaccinated" || key === "dewormed" || key === "sterilized") {
+        return !value || pet[key];
+      }
+      return pet[key].includes(value);
+    });
+  });
+
+  renderTableData(filteredPets);
 }
 
 findBtn.addEventListener("click", function () {
-  findPetId(
+  findPet(
     idInputEl.value,
     nameInputEl.value,
     typeInputEl.value,
