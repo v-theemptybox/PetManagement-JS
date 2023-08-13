@@ -8,6 +8,8 @@ const file = document.getElementById("input-file");
 let petArr = JSON.parse(getFromStorage("lsPets")) ?? [];
 let jsonData = JSON.stringify(petArr, null, 2);
 
+let breedArr = JSON.parse(getFromStorage("lsBreeds")) ?? [];
+
 btnImport.addEventListener("click", handleImportBtn);
 
 function handleImportBtn(e) {
@@ -29,6 +31,7 @@ function logFile(e) {
     let existingObjIndex = petArr.findIndex(
       (existingObj) => existingObj.id === importedObj.id
     );
+
     if (existingObjIndex !== -1) {
       // overwrite the existing object with the imported object
       petArr[existingObjIndex] = importedObj;
@@ -36,13 +39,33 @@ function logFile(e) {
       // add the imported object to the array if it doesn't already exist
       petArr.push(importedObj);
     }
+
+    // create temp object get breed and type of petArr
+    const breedObject = {
+      pBreed: importedObj.breed,
+      pType: importedObj.type,
+    };
+
+    // do the same with the breed
+    let existingObjBreed = breedArr.findIndex(
+      (existingObj) => existingObj.breed === importedObj.breed
+    );
+
+    console.log(existingObjBreed);
+    if (existingObjBreed !== -1) {
+      // debugger;
+      breedArr[existingObjBreed] = breedObject;
+    } else {
+      // debugger;
+      breedArr.push(breedObject);
+    }
   });
 
-  // console.log(petArr);
-
   saveToStorage("lsPets", JSON.stringify(petArr));
+  saveToStorage("lsBreeds", JSON.stringify(breedArr));
 }
 
+// export json file
 function exportToJsonFile() {
   let dataUri =
     "data:application/json;charset=utf-8," + encodeURIComponent(jsonData);
