@@ -18,38 +18,36 @@ let petArr = JSON.parse(getFromStorage("lsPets")) ?? [];
 let healthyCheck = true;
 let healthyPetArr = [];
 
-const dummyData1 = {
-  id: "P001",
-  name: "Doge",
-  age: 10,
-  type: "Dog",
-  weight: 10,
-  lengthVal: 50,
-  breed: "Shiba",
-  color: "#D59557",
-  vaccinated: true,
-  dewormed: false,
-  sterilized: false,
-  dateAdded: new Date(),
-};
+// const dummyData1 = {
+//   id: "P001",
+//   name: "Doge",
+//   age: 10,
+//   type: "Dog",
+//   weight: 10,
+//   lengthVal: 50,
+//   breed: "Shiba",
+//   color: "#D59557",
+//   vaccinated: true,
+//   dewormed: false,
+//   sterilized: false,
+//   dateAdded: new Date(),
+// };
 
-const dummyData2 = {
-  id: "P002",
-  name: "Kitty",
-  age: 5,
-  type: "Cat",
-  weight: 5,
-  lengthVal: 30,
-  breed: "Brittania",
-  color: "#8F8F91",
-  vaccinated: true,
-  dewormed: true,
-  sterilized: true,
-  dateAdded: new Date(),
-};
+// const dummyData2 = {
+//   id: "P002",
+//   name: "Kitty",
+//   age: 5,
+//   type: "Cat",
+//   weight: 5,
+//   lengthVal: 30,
+//   breed: "Brittania",
+//   color: "#8F8F91",
+//   vaccinated: true,
+//   dewormed: true,
+//   sterilized: true,
+//   dateAdded: new Date(),
+// };
 
-// petArr.push(dummyData1, dummyData2);
-// healthyPetArr.push(dummyData2);
 renderTableData(petArr);
 
 // Validate Function
@@ -69,12 +67,7 @@ const validateForm = function (data) {
   }
 
   //empty value
-  if (
-    data.id == "" ||
-    data.name == "" ||
-    data.weight == 0 ||
-    data.lengthVal == 0
-  ) {
+  if (data.id == "" || data.name == "") {
     alert("Please enter the value!");
     return false;
   }
@@ -126,12 +119,6 @@ submitBtn.addEventListener("click", function () {
 
   if (validate) {
     petArr.push(data);
-    if (
-      data.vaccinated == true &&
-      data.dewormed == true &&
-      data.sterilized == true
-    )
-      healthyPetArr.push(data);
     clearInput();
     renderTableData(petArr);
     saveToStorage("lsPets", JSON.stringify(petArr));
@@ -210,17 +197,26 @@ const deletePet = function (petId) {
 // Healthy pet
 healthyBtn.addEventListener("click", function () {
   if (healthyCheck) {
+    for (let pet of petArr) {
+      if (
+        pet.vaccinated == true &&
+        pet.dewormed == true &&
+        pet.sterilized == true
+      ) {
+        healthyPetArr.push(pet);
+      }
+    }
     healthyBtn.textContent = "Show All Pet";
     renderTableData(healthyPetArr);
     healthyCheck = false;
   } else {
+    healthyPetArr = [];
     healthyBtn.textContent = "Show Healthy Pet";
     renderTableData(petArr);
     healthyCheck = true;
   }
 });
 
-console.log(localStorage);
 let breedArr = JSON.parse(getFromStorage("lsBreeds")) ?? [];
 
 // Render breed
@@ -228,8 +224,6 @@ const renderBreed = function (breedArr) {
   const filteredBreed = breedArr.filter(
     (breed) => typeInput.value == breed.pType
   );
-
-  // console.log(filteredBreed);
 
   while (breedInput.hasChildNodes()) {
     breedInput.removeChild(breedInput.firstChild);

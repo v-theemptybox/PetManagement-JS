@@ -265,6 +265,7 @@ function findPet(
       if (key === "vaccinated" || key === "dewormed" || key === "sterilized") {
         return !value || pet[key];
       }
+
       return pet[key].includes(value);
     });
   });
